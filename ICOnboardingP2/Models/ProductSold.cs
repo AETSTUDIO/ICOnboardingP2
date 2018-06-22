@@ -15,10 +15,10 @@ namespace ICOnboardingP2.Models
     public partial class ProductSold
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> DateSold { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> CustomerId { get; set; }
-        public Nullable<int> StoreId { get; set; }
+        public System.DateTime DateSold { get; set; }
+        public int CustomerId { get; set; }
+        public int ProductId { get; set; }
+        public int StoreId { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }

@@ -14,7 +14,8 @@ namespace ICOnboardingP2.Models
     using System.Data.Entity.Infrastructure;
     
     public partial class OnboardingP2Entities : DbContext
-    {
+    {   
+       
         public OnboardingP2Entities()
             : base("name=OnboardingP2Entities")
         {

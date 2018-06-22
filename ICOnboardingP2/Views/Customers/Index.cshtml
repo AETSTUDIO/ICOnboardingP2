@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ICOnboardingP2.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@foreach (var customer in Model)
+{
+    @customer.Name @customer.Address
+    
+}
+

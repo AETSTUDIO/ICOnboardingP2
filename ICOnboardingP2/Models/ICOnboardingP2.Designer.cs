@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\AETSTUDIO\source\repos\IC Projects\OnBoarding\Project 2\ICOnboardingP2\ICOnboardingP2\Models\OnBoadingP2Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\AETSTUDIO\source\repos\IC Projects\OnBoarding\Project 2\ICOnboardingP2\ICOnboardingP2\Models\ICOnboardingP2.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
