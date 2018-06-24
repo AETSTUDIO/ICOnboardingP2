@@ -15,9 +15,9 @@ namespace ICOnboardingP2.Controllers
         private OnboardingP2Entities db = new OnboardingP2Entities();
 
         // GET: Customers
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View(db.Customers.ToList());
+            return View();
         }
 
         // GET: Customers/Details/5
@@ -46,7 +46,7 @@ namespace ICOnboardingP2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Customer customer)
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace ICOnboardingP2.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return RedirectToAction("Index");
         }
 
         // GET: Customers/Edit/5

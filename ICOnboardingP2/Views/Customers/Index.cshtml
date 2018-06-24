@@ -1,13 +1,120 @@
-﻿@model IEnumerable<ICOnboardingP2.Models.Customer>
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-@foreach (var customer in Model)
+<h2>Customers</h2>
+
+<section>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCustomerModal">
+        Add New Customer
+    </button>
+
+    <div class="modal fade" id="newCustomerModal" tabindex="-1" role="dialog" aria-labelledby="newCustomerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newCustomerModalLabel">Add New Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newCustomerForm">
+                        <div class="form-group">
+                            <label for="NewCustomerName">Name</label>
+                            <input type="text" class="form-control" id="newCustomerName" placeholder="Please Enter Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="newCustomerAddress">Address</label>
+                            <input type="text" class="form-control" id="newCustomerAddress" placeholder="Please Enter Your Address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @*<input type="submit" value ="Submit" class="btn btn-primary" id="newCustomerSubmit"/>*@
+                    <button type="button" class="btn btn-primary" id="newCustomerSubmit">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<table id="customers" class="table table-light table-hover">
+    <thead>
+        <tr>
+            <th>Cutomer Name</th>
+            <th>Address</th>
+            <th>Action(Edit)</th>
+            <th>Action(Delete)</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
 {
-    @customer.Name @customer.Address
-    
+    <script>
+        $(document).ready(function () {
+            $("#customers").DataTable({
+                ajax: {
+                    url: "api/customers",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "address"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<a role='button' class = 'btn btn-warning' href = '/customers/edit/" + data + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class = 'btn btn-danger' customer-delete-id =" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#newCustomerSubmit").click(function () {
+
+                var formdata = {
+                    'name': $("#newCustomerName").val(),
+                    'address': $("#newCustomerAddress").val()
+                };
+
+                $.ajax({
+                    method: "POST",
+                    url: "api/customers",
+                    data: JSON.stringify(formdata),
+                    contentType: "application/json;charset=utf-8",
+                    processData: true,
+                    success: function () {
+                        $("#newCustomerModal").modal("hide");
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                    }
+                });
+
+
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+
 

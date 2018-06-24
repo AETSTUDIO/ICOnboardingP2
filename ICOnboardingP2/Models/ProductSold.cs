@@ -11,13 +11,24 @@ namespace ICOnboardingP2.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class ProductSold
     {
         public int Id { get; set; }
+
+        [Required]
+        [Display(Name ="Date Sold")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime DateSold { get; set; }
+
+        [Required(ErrorMessage = "Please select customer")]
         public int CustomerId { get; set; }
+
+        [Required(ErrorMessage = "Please select product")]
         public int ProductId { get; set; }
+
+        [Required(ErrorMessage = "Please select store")]
         public int StoreId { get; set; }
     
         public virtual Customer Customer { get; set; }
