@@ -4,15 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Products</h2>
+<h2>Stores</h2>
 
-@Html.Partial("_ProductModals")
+@Html.Partial("_StoreModals")
 
-<table id="products" class="table table-light table-hover">
+<table id="stores" class="table table-light table-hover">
     <thead>
         <tr>
-            <th>Product Name</th>
-            <th>Price</th>
+            <th>Store Name</th>
+            <th>Address</th>
             <th>Action(Edit)</th>
             <th>Action(Delete)</th>
         </tr>
@@ -25,9 +25,9 @@
     <script>
         //Add dataTable
         $(document).ready(function () {
-            $("#products").DataTable({
+            $("#stores").DataTable({
                 ajax: {
-                    url: "api/products",
+                    url: "api/Stores",
                     dataSrc: ""
                 },
                 columns: [
@@ -35,39 +35,39 @@
                         data: "name"
                     },
                     {
-                        data: "price"
+                        data: "address"
                     },
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class = 'btn btn-warning' id='editProductBtn' edit-Product-id=" + data + ">Edit</button>";
+                            return "<button class = 'btn btn-warning' id='editStoreBtn' edit-Store-id=" + data + ">Edit</button>";
                         }
                     },
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class = 'btn btn-danger' id='deleteProductBtn' delete-Product-id=" + data + ">Delete</button>";
+                            return "<button class = 'btn btn-danger' id='deleteStoreBtn' delete-Store-id=" + data + ">Delete</button>";
                         }
                     }
                 ]
             });
 
-            //Add new Product
-            $("#newProductSubmit").click(function () {
+            //Add new Store
+            $("#newStoreSubmit").click(function () {
 
                 var formdata = {
-                    "name": $("#newProductName").val(),
-                    "price": $("#newProductPrice").val()
+                    "name": $("#newStoreName").val(),
+                    "address": $("#newStoreAddress").val()
                 };
 
                 $.ajax({
-                    url: "api/products",
+                    url: "api/stores",
                     method: "POST",
                     data: JSON.stringify(formdata),
                     contentType: "application/json;charset=utf-8",
                     processData: true,
                     success: function () {
-                        $("#newProductModal").modal("hide");
+                        $("#newStoreModal").modal("hide");
                         location.reload(true);
                     },
                     error: function (xhr) {
@@ -76,54 +76,54 @@
                 });
             });
 
-            //Delete Product
-            $("#products").on("click", "#deleteProductBtn", function () {
+            //Delete Store
+            $("#stores").on("click", "#deleteStoreBtn", function () {
 
-                var ProductId = $(this).attr("delete-Product-id");
+                var StoreId = $(this).attr("delete-Store-id");
 
-                $("#deleteProductModal").modal("show");
+                $("#deleteStoreModal").modal("show");
 
-                $("#deleteProductSubmit").click(function () {
+                $("#deleteStoreSubmit").click(function () {
 
                     $.ajax({
-                        url: "/api/products/" + ProductId,
+                        url: "/api/stores/" + StoreId,
                         method: "DELETE",
                         success: function () {
-                            $("#deleteProductModal").modal("hide");
+                            $("#deleteStoreModal").modal("hide");
                             location.reload(true);
                         }
                     });
                 });
             });
 
-            //Edit Product
-            $("#products").on("click", "#editProductBtn", function () {
-                var ProductId = $(this).attr("edit-Product-id");
+            //Edit Store
+            $("#stores").on("click", "#editStoreBtn", function () {
+                var StoreId = $(this).attr("edit-Store-id");
 
-                $("#editProductModal").modal("show");
+                $("#editStoreModal").modal("show");
 
                 $.ajax({
-                    url: "api/products/" + ProductId,
+                    url: "api/stores/" + StoreId,
                     method: "GET",
                     success: function (data) {
 
-                        var productData = JSON.parse(JSON.stringify(data));
-                        $("#ProductName").attr("placeholder", productData.name);
-                        $("#ProductPrice").attr("placeholder", productData.price);
+                        var storeData = JSON.parse(JSON.stringify(data));
+                        $("#StoreName").attr("placeholder", storeData.name);
+                        $("#StoreAddress").attr("placeholder", storeData.address);
 
-                        $("#editProductSubmit").click(function () {
+                        $("#editStoreSubmit").click(function () {
                             var formdata = {
-                                "name": $("#ProductName").val(),
-                                "price": $("#ProductPrice").val()
+                                "name": $("#StoreName").val(),
+                                "address": $("#StoreAddress").val()
                             };
                             $.ajax({
-                                url: "/api/Products/" + ProductId,
+                                url: "/api/stores/" + StoreId,
                                 method: "PUT",
                                 data: JSON.stringify(formdata),
                                 contentType: "application/json;charset=utf-8",
                                 processData: true,
                                 success: function () {
-                                    $("#editProductModal").modal("hide");
+                                    $("#editStoreModal").modal("hide");
                                     location.reload(true);
                                 },
                                 error: function (xhr) {
@@ -142,6 +142,5 @@
 
     @Scripts.Render("~/bundles/jqueryval")
 }
-
 
 

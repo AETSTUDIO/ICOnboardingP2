@@ -99,7 +99,7 @@
             //Edit customer
             $("#customers").on("click", "#editCustomerBtn", function () {
                 var customerId = $(this).attr("edit-customer-id");
-                
+
                 $("#editCustomerModal").modal("show");
 
                 $.ajax({
@@ -108,14 +108,14 @@
                     success: function (data) {
 
                         var customerData = JSON.parse(JSON.stringify(data));
-                        $("#customerName").attr("placeholder", customerData.name); 
+                        $("#customerName").attr("placeholder", customerData.name);
                         $("#customerAddress").attr("placeholder", customerData.address);
 
                         $("#editCustomerSubmit").click(function () {
                             var formdata = {
                                 "name": $("#customerName").val(),
                                 "address": $("#customerAddress").val()
-                            }; 
+                            };
                             $.ajax({
                                 url: "/api/customers/" + customerId,
                                 method: "PUT",
@@ -136,10 +136,7 @@
                         alert(xhr.responseText);
                     }
                 });
-
-                
-
-            })
+            });
         });
     </script>
 
