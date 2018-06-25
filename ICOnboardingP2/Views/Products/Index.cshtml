@@ -4,15 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Customers</h2>
+<h2>Products</h2>
 
-@Html.Partial("_CustomerModals")
+@Html.Partial("_ProductModals")
 
-<table id="customers" class="table table-light table-hover">
+<table id="Products" class="table table-light table-hover">
     <thead>
         <tr>
-            <th>Cutomer Name</th>
-            <th>Address</th>
+            <th>Product Name</th>
+            <th>Price</th>
             <th>Action(Edit)</th>
             <th>Action(Delete)</th>
         </tr>
@@ -25,9 +25,9 @@
     <script>
         //Add dataTable
         $(document).ready(function () {
-            $("#customers").DataTable({
+            $("#Products").DataTable({
                 ajax: {
-                    url: "api/customers",
+                    url: "api/Products",
                     dataSrc: ""
                 },
                 columns: [
@@ -35,39 +35,39 @@
                         data: "name"
                     },
                     {
-                        data: "address"
+                        data: "price"
                     },
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class = 'btn btn-warning' id='editCustomerBtn' edit-customer-id=" + data + ">Edit</button>";
+                            return "<button class = 'btn btn-warning' id='editProductBtn' edit-Product-id=" + data + ">Edit</button>";
                         }
                     },
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class = 'btn btn-danger' id='deleteCustomerBtn' delete-customer-id=" + data + ">Delete</button>";
+                            return "<button class = 'btn btn-danger' id='deleteProductBtn' delete-Product-id=" + data + ">Delete</button>";
                         }
                     }
                 ]
             });
 
-            //Add new customer
-            $("#newCustomerSubmit").click(function () {
+            //Add new Product
+            $("#newProductSubmit").click(function () {
 
                 var formdata = {
-                    "name": $("#newCustomerName").val(),
-                    "address": $("#newCustomerAddress").val()
+                    "name": $("#newProductName").val(),
+                    "price": $("#newProductPrice").val()
                 };
 
                 $.ajax({
-                    url: "api/customers",
+                    url: "api/Products",
                     method: "POST",
                     data: JSON.stringify(formdata),
                     contentType: "application/json;charset=utf-8",
                     processData: true,
                     success: function () {
-                        $("#newCustomerModal").modal("hide");
+                        $("#newProductModal").modal("hide");
                         location.reload(true);
                     },
                     error: function (xhr) {
@@ -76,54 +76,54 @@
                 });
             });
 
-            //Delete customer
-            $("#customers").on("click", "#deleteCustomerBtn", function () {
+            //Delete Product
+            $("#Products").on("click", "#deleteProductBtn", function () {
 
-                var customerId = $(this).attr("delete-customer-id");
+                var ProductId = $(this).attr("delete-Product-id");
 
-                $("#deleteCustomerModal").modal("show");
+                $("#deleteProductModal").modal("show");
 
-                $("#deleteCustomerSubmit").click(function () {
+                $("#deleteProductSubmit").click(function () {
 
                     $.ajax({
-                        url: "/api/customers/" + customerId,
+                        url: "/api/Products/" + ProductId,
                         method: "DELETE",
                         success: function () {
-                            $("#deleteCustomerModal").modal("hide");
+                            $("#deleteProductModal").modal("hide");
                             location.reload(true);
                         }
                     });
                 });
             });
 
-            //Edit customer
-            $("#customers").on("click", "#editCustomerBtn", function () {
-                var customerId = $(this).attr("edit-customer-id");
-                
-                $("#editCustomerModal").modal("show");
+            //Edit Product
+            $("#Products").on("click", "#editProductBtn", function () {
+                var ProductId = $(this).attr("edit-Product-id");
+
+                $("#editProductModal").modal("show");
 
                 $.ajax({
-                    url: "api/customers/" + customerId,
+                    url: "api/Products/" + ProductId,
                     method: "GET",
                     success: function (data) {
 
-                        var customerData = JSON.parse(JSON.stringify(data));
-                        $("#customerName").attr("placeholder", customerData.name); 
-                        $("#customerAddress").attr("placeholder", customerData.address);
+                        var ProductData = JSON.parse(JSON.stringify(data));
+                        $("#ProductName").attr("placeholder", ProductData.name);
+                        $("#ProductPrice").attr("placeholder", ProductData.price);
 
-                        $("#editCustomerSubmit").click(function () {
+                        $("#editProductSubmit").click(function () {
                             var formdata = {
-                                "name": $("#customerName").val(),
-                                "address": $("#customerAddress").val()
-                            }; 
+                                "name": $("#ProductName").val(),
+                                "price": $("#ProductPrice").val()
+                            };
                             $.ajax({
-                                url: "/api/customers/" + customerId,
+                                url: "/api/Products/" + ProductId,
                                 method: "PUT",
                                 data: JSON.stringify(formdata),
                                 contentType: "application/json;charset=utf-8",
                                 processData: true,
                                 success: function () {
-                                    $("#editCustomerModal").modal("hide");
+                                    $("#editProductModal").modal("hide");
                                     location.reload(true);
                                 },
                                 error: function (xhr) {
@@ -137,7 +137,7 @@
                     }
                 });
 
-                
+
 
             })
         });
@@ -145,8 +145,6 @@
 
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-
 
 
 
