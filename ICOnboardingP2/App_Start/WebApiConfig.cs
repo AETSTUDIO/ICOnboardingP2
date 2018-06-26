@@ -13,7 +13,6 @@ namespace ICOnboardingP2
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
