@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ICOnboardingP2.Models;
-using ICOnboardingP2.Models.ViewModel;
+
 
 namespace ICOnboardingP2.Controllers.Api
 {

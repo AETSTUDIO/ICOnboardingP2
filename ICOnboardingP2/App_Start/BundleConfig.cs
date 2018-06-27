@@ -12,7 +12,8 @@ namespace ICOnboardingP2
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/DataTables/jquery.dataTables.js",
-                "~/Scripts/DataTables/dataTables.bootstrap4.js"
+                "~/Scripts/DataTables/dataTables.bootstrap4.js",
+                "~/Scripts/moment.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
