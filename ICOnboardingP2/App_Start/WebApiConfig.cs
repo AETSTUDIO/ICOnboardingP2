@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Serialization;
+using ICOnboardingP2.Filters;
 
 
 namespace ICOnboardingP2
@@ -13,6 +14,7 @@ namespace ICOnboardingP2
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Filters.Add(new ValidateModelAttribute());
 
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();

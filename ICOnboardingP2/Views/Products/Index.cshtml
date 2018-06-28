@@ -71,7 +71,8 @@
                         location.reload(true);
                     },
                     error: function (xhr) {
-                        alert(xhr.responseText);
+                        $("#newProductName").attr("placeholder", "Please enter name");
+                        $("#newProductPrice").attr("placeholder", "Input invalid");
                     }
                 });
             });
@@ -108,13 +109,13 @@
                     success: function (data) {
 
                         var productData = JSON.parse(JSON.stringify(data));
-                        $("#ProductName").attr("placeholder", productData.name);
-                        $("#ProductPrice").attr("placeholder", productData.price);
+                        $("#productName").attr("placeholder", productData.name);
+                        $("#productPrice").attr("placeholder", productData.price);
 
                         $("#editProductSubmit").click(function () {
                             var formdata = {
-                                "name": $("#ProductName").val(),
-                                "price": $("#ProductPrice").val()
+                                "name": $("#productName").val(),
+                                "price": $("#productPrice").val()
                             };
                             $.ajax({
                                 url: "/api/Products/" + ProductId,
@@ -127,7 +128,8 @@
                                     location.reload(true);
                                 },
                                 error: function (xhr) {
-                                    alert(xhr.responseText);
+                                    $("#productName").attr("placeholder", "Please enter name");
+                                    $("#productPrice").attr("placeholder", "Input invalid");
                                 }
                             });
                         });

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ICOnboardingP2.Models;
+using Newtonsoft.Json;
 
 
 namespace ICOnboardingP2.Controllers.Api
@@ -34,6 +35,7 @@ namespace ICOnboardingP2.Controllers.Api
             return customer;
         }
 
+        
         //POST api/customers
         [HttpPost]
         public Customer CreateCustomer(Customer customer)

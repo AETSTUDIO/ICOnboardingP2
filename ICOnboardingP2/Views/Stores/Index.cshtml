@@ -71,7 +71,8 @@
                         location.reload(true);
                     },
                     error: function (xhr) {
-                        alert(xhr.responseText);
+                        $("#newStoreName").attr("placeholder", "Please enter name");
+                        $("#newStoreAddress").attr("placeholder", "Please enter Address");
                     }
                 });
             });
@@ -108,13 +109,13 @@
                     success: function (data) {
 
                         var storeData = JSON.parse(JSON.stringify(data));
-                        $("#StoreName").attr("placeholder", storeData.name);
-                        $("#StoreAddress").attr("placeholder", storeData.address);
+                        $("#storeName").attr("placeholder", storeData.name);
+                        $("#storeAddress").attr("placeholder", storeData.address);
 
                         $("#editStoreSubmit").click(function () {
                             var formdata = {
-                                "name": $("#StoreName").val(),
-                                "address": $("#StoreAddress").val()
+                                "name": $("#storeName").val(),
+                                "address": $("#storeAddress").val()
                             };
                             $.ajax({
                                 url: "/api/stores/" + StoreId,
@@ -127,7 +128,8 @@
                                     location.reload(true);
                                 },
                                 error: function (xhr) {
-                                    alert(xhr.responseText);
+                                    $("#storeName").attr("placeholder", "Please enter name");
+                                    $("#storeAddress").attr("placeholder", "Please enter Address");
                                 }
                             });
                         });
