@@ -11,8 +11,6 @@ namespace ICOnboardingP2
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.validate.js",
-                "~/Scripts/jquery.validate.unobtrusive.min.js",
                 "~/Scripts/DataTables/jquery.dataTables.js",
                 "~/Scripts/DataTables/dataTables.bootstrap4.js",
                 "~/Scripts/moment.min.js"

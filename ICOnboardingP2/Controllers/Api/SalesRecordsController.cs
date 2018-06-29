@@ -12,7 +12,7 @@ namespace ICOnboardingP2.Controllers.Api
 {
     public class SalesRecordsController : ApiController
     {
-        private OnboardingP2Entities db;
+        private readonly OnboardingP2Entities db;
 
         public SalesRecordsController()
         {
@@ -82,6 +82,15 @@ namespace ICOnboardingP2.Controllers.Api
 
             db.ProductSolds.Remove(productSoldInDb);
             db.SaveChanges();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

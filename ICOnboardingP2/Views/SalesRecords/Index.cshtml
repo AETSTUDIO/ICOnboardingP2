@@ -103,11 +103,12 @@
 
                 //Add new Sale Record
                 $("#newProductSoldSubmit").click(function () {
+
                     var formdata = {
                         "customerId": $("#newProductSoldCustomerList").val(),
                         "productId": $("#newProductSoldProductList").val(),
                         "storeId": $("#newProductSoldStoreList").val(),
-                        "dateSold": $("#newProductSoldDate").val()
+                        "dateSold": changeDate($("#newProductSoldDate").val())
                     };
                     $.ajax({
                         url: "api/salesrecords",
@@ -149,7 +150,7 @@
             //Edit Sales Record
             $("#ProductSolds").on("click", "#editProductSoldBtn", function () {
                 var productSoldId = $(this).attr("edit-ProductSold-id");
-               
+
                 $("#editProductSoldModal").modal("show");
 
                 //Populate Sales Record Details with dropdown menus using jQuery getJSON function
@@ -191,7 +192,7 @@
                             $("#editProductSoldStoreList").html(listStores);
                         });
 
-                        $("#editProductSoldDate").attr("placeholder", moment(data.dateSold).format("YYYY-MM-DD"));
+                        $("#editProductSoldDate").attr("placeholder", moment(data.dateSold).format("DD/MM/YYYY"));
 
                         //Submit Edited Sales Record Form
                         $("#editProductSoldSubmit").click(function () {
@@ -199,9 +200,9 @@
                                 "customerId": $("#editProductSoldCustomerList").val(),
                                 "productId": $("#editProductSoldProductList").val(),
                                 "storeId": $("#editProductSoldStoreList").val(),
-                                "dateSold": $("#editProductSoldDate").val()
+                                "dateSold": changeDate($("#editProductSoldDate").val())
                             };
-                            
+
                             $.ajax({
                                 url: "/api/salesrecords/" + productSoldId,
                                 method: "PUT",
@@ -223,6 +224,16 @@
                     }
                 });
             });
+
+            //Change Date Format into YYYY/MM/DD
+            function changeDate(date) {
+                var d = new Date(date.split("/").reverse().join("-"));
+                var dd = d.getDate();
+                var mm = d.getMonth() + 1;
+                var yy = d.getFullYear();
+                var newDate = (yy + "/" + mm + "/" + dd);
+                return newDate;
+            }
         });
     </script>
 

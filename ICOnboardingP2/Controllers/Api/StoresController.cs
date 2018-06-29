@@ -10,7 +10,7 @@ namespace ICOnboardingP2.Controllers.Api
 {
     public class StoresController : ApiController
     {
-        private OnboardingP2Entities db;
+        private readonly OnboardingP2Entities db;
 
         public StoresController()
         {
@@ -76,6 +76,15 @@ namespace ICOnboardingP2.Controllers.Api
 
             db.Stores.Remove(storeInDb);
             db.SaveChanges();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

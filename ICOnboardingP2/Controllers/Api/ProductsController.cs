@@ -15,7 +15,7 @@ namespace ICOnboardingP2.Controllers.Api
 {
     public class ProductsController : ApiController
     {
-        private OnboardingP2Entities db;
+        private readonly OnboardingP2Entities db;
 
         public ProductsController()
         {
